@@ -77,3 +77,12 @@ $env.NU_PLUGIN_DIRS = [
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.local/nvim/bin')
 $env.PATH = ($env.PATH | split row (char esep) | prepend '~/.deno/bin')
+
+ssh-agent -c
+    | lines
+    | first 2
+    | parse "setenv {name} {value};"
+    | transpose -r
+    | into record
+    | load-env
+ssh-add ~/.ssh/id_ed25519
