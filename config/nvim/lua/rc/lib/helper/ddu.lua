@@ -11,8 +11,10 @@ function M.action(name, params, stopinsert, callback)
   return function()
     if stopinsert then
       vim.cmd.stopinsert()
-      vim.fn["ddu#ui#do_action"](name, params or vim.empty_dict())
-      safe_call(callback)
+      vim.schedule(function()
+        vim.fn["ddu#ui#do_action"](name, params or vim.empty_dict())
+        safe_call(callback)
+      end)
     else
       vim.fn["ddu#ui#do_action"](name, params or vim.empty_dict())
       safe_call(callback)

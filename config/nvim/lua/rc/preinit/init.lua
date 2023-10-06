@@ -1,2 +1,3 @@
 require("rc.preinit.option")
-require("rc.preinit.keymap")
+require("rc.preinit.keymaps")
+require("rc.preinit.vim")

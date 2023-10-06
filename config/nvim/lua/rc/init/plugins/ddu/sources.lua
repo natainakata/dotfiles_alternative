@@ -166,6 +166,42 @@ local spec = {
       { "<Leader>g", "<Cmd>Ddu file:rg<CR>", desc = "Ddu Rg List" }
     }
   },
+  {
+    "Shougo/ddu-source-dummy",
+    dependencies = "ddu.vim",
+    config = function()
+      helper.patch_global({
+        sourceOptions = {
+          dummy = {
+            matchers = {},
+            sorters = {},
+            converters = {},
+          },
+        },
+      })
+      local function is_dummy(items, index)
+        return items[index] and items[index].__sourceName == "dummy"
+      end
+      local function move_ignore_dummy(dir)
+        return function()
+          local items = vim.fn["ddu#ui#get_items"]()
+          local index = vim.fn.line(".") + dir
+      
+          while is_dummy(items, index) do
+            index = index + dir
+          end
+          if 1 <= index and index <= #items then
+            vim.cmd("normal! " .. index .. "gg")
+          end
+        end
+      end
+      helper.ff_map("dummy", function(map)
+        -- Move cursor ignoring dummy items
+        map("j", move_ignore_dummy(1))
+        map("k", move_ignore_dummy(-1))
+      end)
+    end,
+  },
+  
 }
-
 return spec

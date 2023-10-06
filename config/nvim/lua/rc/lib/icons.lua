@@ -86,5 +86,13 @@ M.mode = {
   o = "∙",
 }
 
+
+function M.register_diagnostics()
+  for name, icon in pairs(M.diagnostics) do
+    name = "DiagnosticSign" .. name
+    vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
+  end
+end
+
 return M
 

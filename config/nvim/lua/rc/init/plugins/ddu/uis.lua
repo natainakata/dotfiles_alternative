@@ -44,9 +44,6 @@ local spec = {
       map("i", "<Esc>", helper.action("leaveFilterWindow", nil, true))
       -- Close filter window
       map("n", "<Esc>", helper.action("closeFilterWindow", nil, true))
-      -- Move cursor
-      map("i", "<C-n>", helper.execute("normal j"))
-      map("i", "<C-p>", helper.execute("normal k"))
     end)
     local function resize()
       local lines = vim.opt.lines:get()
