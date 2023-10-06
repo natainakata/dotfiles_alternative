@@ -23,6 +23,7 @@ opt.wildmode = { "list", "longest" }
 
 opt.splitbelow = true
 opt.splitright = true
+opt.showtabline  = 2
 opt.laststatus = 3
 opt.cmdwinheight = 10
 opt.cmdheight = 0
@@ -31,6 +32,11 @@ opt.virtualedit = "onemore"
 opt.mouse = "a"
 opt.clipboard:append({ "unnamed", "unnamedplus"})
 opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
+
+opt.list = true
+opt.listchars:append("eol:↴")
+opt.showmatch = true
+opt.cursorcolumn = true
 
 if vim.loop.os_uname().sysname == "Linux" then
   if vim.fn.has("wsl") == 1 then

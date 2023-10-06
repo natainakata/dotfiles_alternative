@@ -1,4 +1,24 @@
+local icons = require("rc.lib.icons")
+local utils = require("rc.lib.utils")
 local spec = {
+	{
+		"goolord/alpha-nvim",
+		event = "VimEnter",
+    enable = false,
+		dependencies = "nvim-tree/nvim-web-devicons",
+		config = function()
+			plugins.ensure("alpha.themes.dashboard", function(dashboard)
+				dashboard.section.buttons.val = {
+					dashboard.button("n", icons.kinds.File .. " New File", "<cmd>ene<CR>"),
+					dashboard.button("e", icons.kinds.Folder .. " Browze Directory", "<cmd>NvimTreeOpen<CR>"),
+					dashboard.button("f", icons.other.search .. " Find File", "<Cmd>Ddu file:rec<CR>"),
+					dashboard.button("q", icons.other.exit .. " Quit NVIM", "<cmd>qa<CR>"),
+				}
+
+				require("alpha").setup(dashboard.config)
+			end)
+		end,
+	},
 	{
 		"rcarriga/nvim-notify",
 		event = "VeryLazy",
@@ -83,13 +103,81 @@ local spec = {
 	},
 	{
 		"nvim-lualine/lualine.nvim",
-		event = "VeryLazy",
+		event = "VimEnter",
+		enabled = true,
 		opts = {
 			options = {
 				theme = "auto",
 				globalstatus = true,
 				section_separators = { left = "", right = "" },
 				component_separators = { left = "", right = "" },
+			},
+			sections = {
+				lualine_a = {
+					"mode",
+				},
+				lualine_b = {
+					{
+						"filename",
+						newfile_status = true,
+						path = 1,
+						shorting_target = 24,
+						symbols = { modified = icons.files.modified, readonly = icons.files.readonly },
+					},
+				},
+				lualine_c = {
+					{ "b:gitsigns_head", icon = { icons.git.branch } },
+				},
+				lualine_x = {
+					{
+						"diff",
+						symbols = {
+							added = icons.git.added .. " ",
+							modified = icons.files.modified .. " ",
+							removed = icons.git.removed .. " ",
+						},
+						source = utils.diff_source,
+					},
+				},
+				lualine_y = {
+					"filetype",
+				},
+				lualine_z = { { "fileformat", icons_enabled = true, separator = { left = "", right = "" } } },
+			},
+			winbar = {
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = {
+					{
+						"navic",
+						color_correction = "static",
+						navic_opts = {
+							depth_limit = 9,
+						},
+					},
+				},
+				lualine_x = {
+					{
+						"diagnostics",
+						sources = { "nvim_diagnostic", "nvim_lsp" },
+						sections = { "error", "warn", "info", "hint" },
+						symbols = {
+							error = icons.diagnostics.Error,
+							warn = icons.diagnostics.Warn,
+							info = icons.diagnostics.Info,
+							hint = icons.diagnostics.Hint,
+						},
+					},
+				},
+				lualine_y = {},
+				lualine_z = {},
+			},
+			extensions = {
+				"man",
+				"lazy",
+				"nvim-tree",
+				"quickfix",
+				"symbols-outline",
 			},
 		},
 	},
@@ -109,7 +197,7 @@ local spec = {
 		},
 		keys = {
 			{ "<S-h>", "<Cmd>BufferPrevious<CR>" },
-			{ "<S-l>", "<Cmd>BufferNext<CR>" },
+			{ "<S-h>", "<Cmd>BufferNext<CR>" },
 		},
 	},
 	{
