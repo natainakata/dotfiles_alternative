@@ -28,7 +28,7 @@ local spec = {
     },
     init = function()
       lsp.on_attach(function(client, bufnr)
-        require("rc.init.plugins.lsp.keymaps")
+        require("rc.init.plugins.lsp.keymaps").on_attach(client, bufnr)
       end)
     end,
     opts = require("rc.init.plugins.lsp.opts"),
