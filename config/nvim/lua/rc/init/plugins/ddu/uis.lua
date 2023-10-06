@@ -41,9 +41,10 @@ local spec = {
     helper.ff_filter_map(nil, function(map)
       -- Close UI
       map("i", "<C-c>", helper.action("quit", nil, true))
-      map("i", "<Esc>", helper.action("leaveFilterWindow", nil, true))
+      map("i", "<CR>", helper.action("leaveFilterWindow", nil, true))
       -- Close filter window
       map("n", "<Esc>", helper.action("closeFilterWindow", nil, true))
+      map("n", "j", helper.action("closeFilterWindow", nil, true))
     end)
     local function resize()
       local lines = vim.opt.lines:get()

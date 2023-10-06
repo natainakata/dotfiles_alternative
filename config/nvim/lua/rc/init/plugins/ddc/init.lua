@@ -1,11 +1,5 @@
 local helper = require("rc.lib.helper.ddc")
 
-local sources = {
-	default = { "vsnip", "nvim-lsp", "buffer" },
-	-- skkeleton = { "skkeleton" },
-	lua = { "vsnip", "nvim-lua", "nvim-lsp", "buffer" },
-}
-
 local spec = {
 	"Shougo/ddc.vim",
 	name = "ddc.vim",
@@ -65,9 +59,9 @@ local spec = {
 					ignoreCase = true,
 				},
 			},
-			sources = sources.default,
+			sources = helper.sources.default,
 		})
-		for ft, source in pairs(sources) do
+		for ft, source in pairs(helper.sources) do
 			if ft ~= "default" and ft ~= "skkeleton" then
 				helper.patch_filetype(ft, {
 					sources = source,

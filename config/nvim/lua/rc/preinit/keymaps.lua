@@ -17,11 +17,6 @@ imap("jj", "<Esc>")
 nmap("<Esc><Esc>", "<Cmd>nohlsearch<CR>")
 nmap("x", [["_x]])
 
--- buffer
-nmap("<S-h>", "<Cmd>bprevious<CR>")
-nmap("<S-l>", "<Cmd>bnext<CR>")
-
-
 --window
 nmap("g-", "<Cmd>split<CR><C-w>w")
 nmap("g\\", "<Cmd>vsplit<CR><C-w>w")
